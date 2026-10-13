@@ -5,196 +5,293 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KazCEP — телеком-инфраструктура, экология и IT по всему Казахстану</title>
   <meta name="description" content="Проектирование и строительство телекоммуникационной инфраструктуры, экологический консалтинг и IT-решения по всему Казахстану. 12+ лет опыта.">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <meta name="theme-color" content="#05080f">
+  <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0b2265;
-      --navy-dark: #081a4d;
-      --green: #4a945f;
-      --ink: #1d2433;
-      --muted: #5a6273;
-      --line: #d9dde5;
-      --bg: #ffffff;
-      --bg-alt: #f4f5f7;
-      --max: 1140px;
+      --bg: #05080f;
+      --bg-2: #0a101c;
+      --panel: rgba(16, 24, 40, .72);
+      --line: rgba(120, 160, 220, .16);
+      --line-strong: rgba(120, 160, 220, .32);
+      --text: #e6edf7;
+      --muted: #8b98ad;
+      --green: #4dff9a;
+      --blue: #3b82ff;
+      --cyan: #38e1ff;
+      --glow-g: 0 0 24px rgba(77, 255, 154, .35);
+      --max: 1180px;
+      --head: "Unbounded", "Exo 2", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "PT Sans", Arial, sans-serif;
+      font-family: "Exo 2", system-ui, sans-serif;
       font-size: 17px;
-      color: var(--ink);
-      background: var(--bg);
       line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Фоновая инженерная сетка */
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 85%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 85%);
+      opacity: .55;
     }
     a { color: inherit; }
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-    section[id] { scroll-margin-top: 80px; }
+    section[id] { scroll-margin-top: 76px; }
+    ::selection { background: var(--green); color: var(--bg); }
 
-    /* Верхняя информационная полоса */
-    .topbar { background: var(--navy-dark); color: rgba(255,255,255,.8); font-size: 14px; }
-    .topbar .wrap { display: flex; justify-content: space-between; gap: 16px; height: 38px; align-items: center; }
-    .topbar a { text-decoration: none; color: #fff; }
-    .topbar .sep { margin: 0 10px; opacity: .4; }
+    /* Логотип */
+    .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo svg { width: 34px; height: 34px; flex: none; filter: drop-shadow(0 0 6px rgba(77,255,154,.45)); }
+    .logo .word { font-family: var(--head); font-weight: 700; font-size: 20px; letter-spacing: .14em; line-height: 1; white-space: nowrap; }
+    .logo .word b { color: var(--green); font-weight: 700; text-shadow: 0 0 14px rgba(77,255,154,.5); }
+    .logo .word i { font-style: normal; color: var(--text); }
 
-    /* Шапка и навигация */
-    header { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--line); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
-    .nav .logo img { height: 30px; width: auto; display: block; }
-    .menu { list-style: none; display: flex; margin: 0; padding: 0; }
-    .menu a {
-      display: block; padding: 0 16px; line-height: 72px; text-decoration: none;
-      font-weight: 700; font-size: 15px; color: var(--ink);
-      border-bottom: 3px solid transparent;
+    /* Шапка */
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(5, 8, 15, .78);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
     }
-    .menu a:hover { color: var(--navy); border-bottom-color: var(--green); }
-    .burger { display: none; background: none; border: 1px solid var(--line); border-radius: 3px; width: 44px; height: 40px; cursor: pointer; }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 24px; }
+    .menu { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
+    .menu a {
+      display: block; padding: 8px 14px; text-decoration: none;
+      font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+      border: 1px solid transparent; border-radius: 6px;
+    }
+    .menu a:hover { color: var(--green); border-color: var(--line-strong); }
+    .burger { display: none; background: none; border: 1px solid var(--line-strong); border-radius: 6px; width: 44px; height: 40px; cursor: pointer; }
     .burger span, .burger span::before, .burger span::after {
-      display: block; width: 20px; height: 2px; background: var(--navy); margin: 0 auto; position: relative; content: "";
+      display: block; width: 18px; height: 2px; background: var(--green); margin: 0 auto; position: relative; content: "";
     }
     .burger span::before { position: absolute; top: -6px; }
     .burger span::after { position: absolute; top: 6px; }
 
     .btn {
-      display: inline-block; text-decoration: none; font-weight: 700; font-size: 15px;
-      padding: 12px 26px; border-radius: 3px; background: var(--navy); color: #fff; border: 1px solid var(--navy);
+      display: inline-flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
+      font-family: var(--mono); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em;
+      padding: 14px 22px; border-radius: 6px; border: 1px solid var(--green);
+      background: var(--green); color: var(--bg);
+      box-shadow: var(--glow-g);
+      transition: box-shadow .2s, background .2s, color .2s;
     }
-    .btn:hover { background: var(--navy-dark); }
-    .btn.light { background: #fff; color: var(--navy); border-color: #fff; }
-    .btn.light:hover { background: #e9ecf2; }
-    .btn.outline { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
-    .btn.outline:hover { background: rgba(255,255,255,.08); }
+    .btn:hover { box-shadow: 0 0 36px rgba(77,255,154,.6); }
+    .btn.ghost { background: transparent; color: var(--text); border-color: var(--line-strong); box-shadow: none; }
+    .btn.ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn .arr { transition: transform .2s; }
+    .btn:hover .arr { transform: translateX(3px); }
+
+    /* Подписи-метки */
+    .tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--green);
+      margin: 0 0 18px;
+    }
+    .tag::before { content: ""; width: 8px; height: 8px; background: var(--green); box-shadow: 0 0 10px var(--green); transform: rotate(45deg); }
 
     /* Главный экран */
-    .hero { background: var(--navy); color: #fff; padding: 88px 0 80px; border-bottom: 4px solid var(--green); }
-    .hero h1 { font-size: clamp(30px, 4.2vw, 46px); line-height: 1.2; margin: 0 0 20px; max-width: 780px; }
-    .hero p { font-size: 19px; color: rgba(255,255,255,.82); max-width: 640px; margin: 0 0 36px; }
+    .hero { position: relative; padding: 110px 0 0; overflow: hidden; }
+    .hero::after {
+      content: ""; position: absolute; z-index: -1; pointer-events: none;
+      width: 900px; height: 900px; right: -300px; top: -420px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,255,.22), rgba(77,255,154,.08) 45%, transparent 70%);
+    }
+    .hero h1 {
+      font-family: var(--head); font-weight: 700; font-size: clamp(28px, 4.6vw, 58px);
+      line-height: 1.12; letter-spacing: -.01em; margin: 0 0 26px; max-width: 900px;
+    }
+    .hero h1 .hl {
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { font-size: clamp(17px, 1.7vw, 20px); color: var(--muted); max-width: 640px; margin: 0 0 40px; }
     .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .status {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px;
+      font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .06em;
+      border: 1px solid var(--line-strong); border-radius: 999px; padding: 6px 14px; background: var(--panel);
+    }
+    .status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 50% { opacity: .35; } }
 
-    /* Цифры */
-    .stats { background: #fff; border-bottom: 1px solid var(--line); }
-    .stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .stat { padding: 36px 24px; text-align: center; }
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 90px;
+      border: 1px solid var(--line); border-radius: 12px; background: var(--panel); overflow: hidden;
+    }
+    .stat { padding: 30px 28px; position: relative; }
     .stat + .stat { border-left: 1px solid var(--line); }
-    .stat b { display: block; font-size: 40px; line-height: 1.1; color: var(--navy); }
-    .stat span { color: var(--muted); font-size: 15px; text-transform: uppercase; letter-spacing: .05em; }
+    .stat .k { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .stat b { display: block; font-family: var(--head); font-weight: 700; font-size: clamp(28px, 3.4vw, 42px); color: var(--text); margin: 6px 0 2px; }
+    .stat b span { color: var(--green); }
+    .stat .v { color: var(--muted); font-size: 15px; }
 
     /* Разделы */
-    section { padding: 80px 0; }
-    section.alt { background: var(--bg-alt); }
-    h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.25; margin: 0 0 14px; color: var(--navy); }
-    h2::after { content: ""; display: block; width: 56px; height: 3px; background: var(--green); margin-top: 14px; }
-    .lead { color: var(--muted); max-width: 720px; margin: 0; }
+    section { padding: 110px 0; position: relative; }
+    h2 { font-family: var(--head); font-weight: 700; font-size: clamp(24px, 3vw, 38px); line-height: 1.2; margin: 0 0 18px; letter-spacing: -.01em; }
+    .lead { color: var(--muted); max-width: 680px; margin: 0; font-size: 18px; }
+    .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+    .idx { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .12em; }
+
+    /* Панели с уголками */
+    .panel {
+      position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+      transition: border-color .2s, transform .2s;
+    }
+    .panel::before, .panel::after {
+      content: ""; position: absolute; width: 14px; height: 14px; border-color: var(--green); border-style: solid; opacity: 0; transition: opacity .2s;
+    }
+    .panel::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-top-left-radius: 10px; }
+    .panel::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-bottom-right-radius: 10px; }
+    .panel:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+    .panel:hover::before, .panel:hover::after { opacity: 1; }
 
     /* О компании */
-    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
-    .about p { color: var(--muted); margin: 0 0 16px; }
-    .clients-title { font-size: 18px; color: var(--navy); margin: 0 0 16px; }
-    .clients { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: #fff; }
-    .clients div { padding: 14px 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font-weight: 700; }
+    .about { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: start; }
+    .about p { color: var(--muted); margin: 0 0 16px; font-size: 18px; }
+    .clients { padding: 28px; }
+    .clients h3 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips span {
+      padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 6px;
+      font-weight: 500; font-size: 15px; background: rgba(5,8,15,.6);
+    }
 
     /* Преимущества */
-    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
-    .card { background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--navy); padding: 28px; }
-    .card .num { font-size: 14px; font-weight: 700; color: var(--green); margin-bottom: 10px; }
-    .card h3 { margin: 0 0 10px; font-size: 20px; color: var(--navy); }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
+    .card { padding: 30px; }
+    .card .ic {
+      width: 46px; height: 46px; border-radius: 10px; display: grid; place-items: center; margin-bottom: 22px;
+      color: var(--green); border: 1px solid rgba(77,255,154,.35); background: rgba(77,255,154,.06);
+    }
+    .card .ic svg { width: 22px; height: 22px; }
+    .card .no { position: absolute; top: 26px; right: 26px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .card h3 { margin: 0 0 10px; font-size: 20px; font-weight: 600; }
     .card p { margin: 0; color: var(--muted); font-size: 16px; }
 
     /* Лицензии */
-    table.licenses { width: 100%; border-collapse: collapse; margin-top: 44px; background: #fff; border: 1px solid var(--line); }
-    .licenses th, .licenses td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--line); vertical-align: top; }
-    .licenses th { background: var(--navy); color: #fff; font-size: 14px; text-transform: uppercase; letter-spacing: .05em; }
-    .licenses td:first-child { font-weight: 700; color: var(--navy); white-space: nowrap; width: 34%; }
+    .licenses { margin-top: 52px; overflow: hidden; }
+    .lic-row { display: grid; grid-template-columns: 70px 260px 1fr; gap: 20px; align-items: center; padding: 20px 26px; border-top: 1px solid var(--line); }
+    .lic-row:first-child { border-top: 0; }
+    .lic-row .n { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .lic-row .id { font-family: var(--mono); font-size: 15px; color: var(--cyan); }
+    .lic-row .what { font-size: 17px; }
+    .lic-row .ok { justify-self: end; }
+    .lic-head { background: rgba(59,130,255,.08); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+    .lic-head > * { color: var(--muted) !important; font-size: 11px !important; }
 
     /* Вендоры */
-    .vendors { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 44px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .vendors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 52px; }
     .vendor {
-      height: 100px; display: grid; place-items: center;
-      border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
-      font-weight: 700; font-size: 21px; color: var(--navy);
+      height: 108px; display: grid; place-items: center;
+      font-family: var(--head); font-weight: 500; font-size: 17px; letter-spacing: .06em; color: var(--muted);
     }
+    .vendor:hover { color: var(--text); }
 
     /* Офисы */
-    .offices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 44px; }
-    .office { background: #fff; border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; }
-    .office h3 { margin: 0; font-size: 21px; color: var(--navy); }
-    .office .tag { margin-top: 4px; font-size: 13px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .06em; }
-    .office address { font-style: normal; color: var(--muted); font-size: 16px; margin: 14px 0 18px; flex: 1; }
-    .office a.phone { font-weight: 700; text-decoration: none; color: var(--navy); padding-top: 14px; border-top: 1px solid var(--line); }
-    .office a.phone:hover { text-decoration: underline; }
+    .offices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 52px; }
+    .office { padding: 26px; display: flex; flex-direction: column; }
+    .office .city { font-family: var(--head); font-weight: 700; font-size: 20px; margin: 0; }
+    .office .main { display: inline-block; margin-top: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--bg); background: var(--green); padding: 3px 8px; border-radius: 4px; align-self: flex-start; }
+    .office address { font-style: normal; color: var(--muted); font-size: 16px; margin: 16px 0 20px; flex: 1; }
+    .office a.phone { font-family: var(--mono); font-size: 15px; text-decoration: none; color: var(--cyan); padding-top: 16px; border-top: 1px dashed var(--line-strong); }
+    .office a.phone:hover { color: var(--green); }
 
-    /* Призыв к действию */
-    .cta { background: var(--navy); color: #fff; padding: 56px 0; }
-    .cta .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-    .cta h2 { color: #fff; margin: 0; }
-    .cta h2::after { display: none; }
-    .cta p { margin: 6px 0 0; color: rgba(255,255,255,.8); }
+    /* Призыв */
+    .cta { padding: 0 0 110px; }
+    .cta .box {
+      padding: 56px; border-radius: 16px; position: relative; overflow: hidden;
+      background: linear-gradient(120deg, rgba(59,130,255,.18), rgba(77,255,154,.12));
+      border: 1px solid var(--line-strong);
+      display: flex; justify-content: space-between; align-items: center; gap: 28px; flex-wrap: wrap;
+    }
+    .cta h2 { margin: 0 0 8px; }
+    .cta p { margin: 0; color: var(--muted); }
 
     /* Подвал */
-    footer { background: var(--navy-dark); color: rgba(255,255,255,.75); font-size: 15px; }
-    .footer-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding: 56px 20px 40px; }
-    footer h4 { color: #fff; font-size: 15px; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 16px; }
+    footer { border-top: 1px solid var(--line); background: var(--bg-2); color: var(--muted); font-size: 15px; }
+    .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding: 56px 20px 40px; }
+    footer h4 { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--text); margin: 0 0 16px; }
     footer ul { list-style: none; margin: 0; padding: 0; }
     footer li { margin-bottom: 8px; }
     footer a { text-decoration: none; }
-    footer a:hover { color: #fff; text-decoration: underline; }
-    footer .logo-box { display: inline-block; background: #fff; padding: 10px 14px; border-radius: 3px; margin-bottom: 16px; }
-    footer .logo-box img { height: 22px; display: block; }
-    .copy { border-top: 1px solid rgba(255,255,255,.12); padding: 20px; font-size: 14px; }
+    footer a:hover { color: var(--green); }
+    footer .logo { margin-bottom: 18px; }
+    .copy { border-top: 1px solid var(--line); padding: 20px; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1000px) {
       .burger { display: block; }
-      .nav .btn { display: none; }
+      .nav > .btn { display: none; }
       .menu {
-        display: none; position: absolute; top: 100%; left: 0; right: 0;
-        flex-direction: column; background: #fff; border-bottom: 1px solid var(--line);
+        display: none; position: absolute; top: 100%; left: 0; right: 0; gap: 0;
+        flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 12px 14px;
       }
       .menu.open { display: flex; }
-      .menu a { line-height: 1; padding: 16px 20px; border-bottom: 1px solid var(--line); }
-      .menu a:hover { border-bottom-color: var(--line); background: var(--bg-alt); }
+      .menu a { padding: 14px 10px; border-radius: 0; border: 0; border-bottom: 1px solid var(--line); font-size: 14px; }
       .about { grid-template-columns: 1fr; gap: 40px; }
       .grid3 { grid-template-columns: repeat(2, 1fr); }
       .offices { grid-template-columns: repeat(2, 1fr); }
       .vendors { grid-template-columns: repeat(3, 1fr); }
+      .lic-row { grid-template-columns: 50px 220px 1fr; }
       .footer-cols { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
       body { font-size: 16px; }
-      .topbar .addr { display: none; }
-      .nav .logo img { height: 22px; }
-      .hero { padding: 56px 0; }
-      .stats .wrap { grid-template-columns: repeat(2, 1fr); padding: 0; }
-      .stat { padding: 24px 12px; }
+      .logo svg { width: 28px; height: 28px; }
+      .logo .word { font-size: 16px; }
+      .hero { padding-top: 64px; }
+      .stats { grid-template-columns: repeat(2, 1fr); margin-top: 56px; }
+      .stat { padding: 22px 18px; }
       .stat:nth-child(3) { border-left: 0; }
       .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
-      .stat b { font-size: 32px; }
-      section { padding: 56px 0; }
-      .grid3, .offices, .clients { grid-template-columns: 1fr; }
+      section { padding: 72px 0; }
+      .grid3, .offices { grid-template-columns: 1fr; }
       .vendors { grid-template-columns: repeat(2, 1fr); }
-      .licenses th:first-child { display: none; }
-      .licenses th:last-child { display: none; }
-      .licenses td { display: block; border-bottom: 0; padding: 4px 16px; }
-      .licenses td:first-child { padding-top: 16px; width: auto; }
-      .licenses td:last-child { padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+      .lic-head { display: none !important; }
+      .lic-row { grid-template-columns: 1fr; gap: 4px; padding: 18px 20px; }
+      .lic-row .n { display: none; }
+      .cta { padding-bottom: 72px; }
+      .cta .box { padding: 32px 24px; }
       .footer-cols { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .status .dot { animation: none; }
+      .panel, .btn, .btn .arr { transition: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="wrap">
-      <span class="addr">Главный офис: г. Алматы, ул. Тимирязева, 42/15</span>
-      <span><a href="tel:+77017311063">+7 701 731 10 63</a><span class="sep">|</span><a href="tel:+77074393939">+7 707 439 39 39</a></span>
-    </div>
-  </div>
+  <!-- Знак логотипа: ступенчатые ромбы, как в оригинальном логотипе -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 64 64">
+      <path fill="#3b82ff" d="M23 40.4L30.6 48L23 55.6L15.4 48Z M32 31.4L39.6 39L32 46.6L24.4 39Z"/>
+      <path fill="#4dff9a" d="M23 22.4L30.6 30L23 37.6L15.4 30Z M32 13.4L39.6 21L32 28.6L24.4 21Z M41 4.4L48.6 12L41 19.6L33.4 12Z"/>
+    </symbol>
+  </svg>
 
   <header>
     <div class="wrap nav">
-      <a class="logo" href="#top" aria-label="KazCEP — на главную"><img src="assets/logo.png" alt="KazCEP"></a>
+      <a class="logo" href="#top" aria-label="KazCEP — на главную">
+        <svg><use href="#mark"/></svg>
+        <span class="word"><b>KAZ</b> <i>CEP</i></span>
+      </a>
       <nav aria-label="Основное меню">
         <ul class="menu" id="menu">
           <li><a href="#about">О компании</a></li>
@@ -204,7 +301,7 @@
           <li><a href="#contacts">Контакты</a></li>
         </ul>
       </nav>
-      <a class="btn" href="#contacts">Связаться с нами</a>
+      <a class="btn" href="#contacts">Связаться <span class="arr">→</span></a>
       <button class="burger" aria-label="Открыть меню" aria-controls="menu" aria-expanded="false"><span></span></button>
     </div>
   </header>
@@ -212,105 +309,146 @@
   <main id="top">
     <div class="hero">
       <div class="wrap">
-        <h1>Телекоммуникационная инфраструктура, экология и IT по всему Казахстану</h1>
+        <div class="status"><span class="dot"></span>4 офиса · 30+ бригад · весь Казахстан</div>
+        <h1>Телеком-инфраструктура, экология и IT <span class="hl">по всему Казахстану</span></h1>
         <p>Проектирование и строительство телекоммуникационной инфраструктуры, экологический консалтинг и IT-решения по всему Казахстану.</p>
         <div class="actions">
-          <a class="btn light" href="#contacts">Обсудить проект</a>
-          <a class="btn outline" href="#about">О компании</a>
+          <a class="btn" href="#contacts">Обсудить проект <span class="arr">→</span></a>
+          <a class="btn ghost" href="#about">О компании</a>
         </div>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="wrap">
-        <div class="stat"><b>12+</b><span>лет опыта</span></div>
-        <div class="stat"><b>5000+</b><span>проектов БС</span></div>
-        <div class="stat"><b>150+</b><span>легализаций</span></div>
-        <div class="stat"><b>50+</b><span>сотрудников</span></div>
+        <div class="stats">
+          <div class="stat"><div class="k">// опыт</div><b>12<span>+</span></b><div class="v">лет опыта</div></div>
+          <div class="stat"><div class="k">// проекты</div><b>5000<span>+</span></b><div class="v">проектов БС</div></div>
+          <div class="stat"><div class="k">// легализация</div><b>150<span>+</span></b><div class="v">легализаций</div></div>
+          <div class="stat"><div class="k">// команда</div><b>50<span>+</span></b><div class="v">сотрудников</div></div>
+        </div>
       </div>
     </div>
 
     <section id="about">
       <div class="wrap about">
         <div>
-          <h2>О компании</h2>
+          <p class="tag">О компании</p>
+          <h2>Более 12 лет на строительном рынке Казахстана</h2>
           <p>На строительном рынке компания «KazCEP» работает более 12 лет. Накоплен огромный опыт в работах самого разного профиля по всей территории Республики Казахстан.</p>
           <p>Компания преуспела как в промышленном, так и в гражданском строительстве.</p>
         </div>
-        <div>
-          <h3 class="clients-title">Среди наших заказчиков</h3>
-          <div class="clients">
-            <div>Tele2</div><div>АО НК КТЖ</div><div>KEGOC</div><div>BI Group</div><div>Huawei</div>
-            <div>Казахтелеком</div><div>Kcell</div><div>Beeline</div><div>Халык Банк</div><div>КазТрансГаз</div>
+        <div class="panel clients">
+          <h3>Среди наших заказчиков</h3>
+          <div class="chips">
+            <span>Tele2</span><span>АО НК КТЖ</span><span>KEGOC</span><span>BI Group</span><span>Huawei</span>
+            <span>Казахтелеком</span><span>Kcell</span><span>Beeline</span><span>Халык Банк</span><span>КазТрансГаз</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="advantages" class="alt">
+    <section id="advantages">
       <div class="wrap">
-        <h2>Преимущества работы с нами</h2>
+        <div class="sec-head">
+          <div>
+            <p class="tag">Преимущества</p>
+            <h2>Преимущества работы с нами</h2>
+          </div>
+          <span class="idx">[ 06 ]</span>
+        </div>
         <div class="grid3">
-          <div class="card"><div class="num">01</div><h3>Проектная команда</h3><p>Собственный отдел проектирования (II категория). 10 сертифицированных проектировщиков.</p></div>
-          <div class="card"><div class="num">02</div><h3>Контроль качества</h3><p>Отдел СМР (II категория) из ИТР — контроль на всех этапах и пусконаладка. Сертифицированный персонал.</p></div>
-          <div class="card"><div class="num">03</div><h3>Промышленный альпинизм</h3><p>Бригады высотных монтажников с допусками по промышленной и электробезопасности.</p></div>
-          <div class="card"><div class="num">04</div><h3>Управление проектами</h3><p>Собственная «Система координации подрядчиков» для контроля процессов в реальном времени.</p></div>
-          <div class="card"><div class="num">05</div><h3>Покрытие всего Казахстана</h3><p>4 офиса: Алматы, Астана, Шымкент, Атырау. 30+ монтажных бригад готовы к выезду.</p></div>
-          <div class="card"><div class="num">06</div><h3>Сертифицированный партнёр</h3><p>Официальный бизнес-партнёр BI Group. Прямые контракты с ведущими операторами и вендорами.</p></div>
+          <div class="panel card">
+            <span class="no">01</span>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1M9 13h1m4 0h1M9 17h1m4 0h1"/></svg></div>
+            <h3>Проектная команда</h3>
+            <p>Собственный отдел проектирования (II категория). 10 сертифицированных проектировщиков.</p>
+          </div>
+          <div class="panel card">
+            <span class="no">02</span>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3>Контроль качества</h3>
+            <p>Отдел СМР (II категория) из ИТР — контроль на всех этапах и пусконаладка. Сертифицированный персонал.</p>
+          </div>
+          <div class="panel card">
+            <span class="no">03</span>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M8 22h8M5 6l7 4 7-4M7 13l5 3 5-3"/></svg></div>
+            <h3>Промышленный альпинизм</h3>
+            <p>Бригады высотных монтажников с допусками по промышленной и электробезопасности.</p>
+          </div>
+          <div class="panel card">
+            <span class="no">04</span>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14l3-3 3 2 4-5M8 22h8"/></svg></div>
+            <h3>Управление проектами</h3>
+            <p>Собственная «Система координации подрядчиков» для контроля процессов в реальном времени.</p>
+          </div>
+          <div class="panel card">
+            <span class="no">05</span>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+            <h3>Покрытие всего Казахстана</h3>
+            <p>4 офиса: Алматы, Астана, Шымкент, Атырау. 30+ монтажных бригад готовы к выезду.</p>
+          </div>
+          <div class="panel card">
+            <span class="no">06</span>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg></div>
+            <h3>Сертифицированный партнёр</h3>
+            <p>Официальный бизнес-партнёр BI Group. Прямые контракты с ведущими операторами и вендорами.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="licenses">
       <div class="wrap">
-        <h2>Лицензии</h2>
-        <table class="licenses">
-          <thead><tr><th>Номер лицензии</th><th>Вид деятельности</th></tr></thead>
-          <tbody>
-            <tr><td>№13015116</td><td>Проектная деятельность II категории</td></tr>
-            <tr><td>СМР №13016592</td><td>Строительно-монтажные работы II категории</td></tr>
-            <tr><td>Экологическая лицензия №01518Р</td><td>Охрана окружающей среды</td></tr>
-            <tr><td>№18018907</td><td>Изыскательская деятельность</td></tr>
-          </tbody>
-        </table>
+        <div class="sec-head">
+          <div>
+            <p class="tag">Лицензии</p>
+            <h2>Государственные лицензии</h2>
+          </div>
+          <span class="idx">[ 04 ]</span>
+        </div>
+        <div class="panel licenses">
+          <div class="lic-row lic-head"><span class="n">#</span><span class="id">Номер</span><span class="what">Вид деятельности</span></div>
+          <div class="lic-row"><span class="n">01</span><span class="id">№13015116</span><span class="what">Проектная деятельность II категории</span></div>
+          <div class="lic-row"><span class="n">02</span><span class="id">СМР №13016592</span><span class="what">Строительно-монтажные работы II категории</span></div>
+          <div class="lic-row"><span class="n">03</span><span class="id">№01518Р</span><span class="what">Экологическая лицензия — охрана окружающей среды</span></div>
+          <div class="lic-row"><span class="n">04</span><span class="id">№18018907</span><span class="what">Изыскательская деятельность</span></div>
+        </div>
       </div>
     </section>
 
-    <section id="vendors" class="alt">
+    <section id="vendors">
       <div class="wrap">
-        <h2>Вендоры и партнёры</h2>
+        <p class="tag">Вендоры и партнёры</p>
+        <h2>Оборудование ведущих производителей</h2>
         <p class="lead">Прямые и партнёрские каналы поставок от ведущих мировых производителей.</p>
         <div class="vendors">
-          <div class="vendor">Huawei</div>
-          <div class="vendor">ZTE</div>
-          <div class="vendor">Nokia</div>
-          <div class="vendor">Ericsson</div>
-          <div class="vendor">Legrand</div>
+          <div class="panel vendor">Huawei</div>
+          <div class="panel vendor">ZTE</div>
+          <div class="panel vendor">Nokia</div>
+          <div class="panel vendor">Ericsson</div>
+          <div class="panel vendor">Legrand</div>
         </div>
       </div>
     </section>
 
     <section id="contacts">
       <div class="wrap">
+        <p class="tag">Контакты</p>
         <h2>Наши офисы</h2>
         <div class="offices">
-          <div class="office">
-            <h3>Алматы</h3><span class="tag">Главный офис</span>
+          <div class="panel office">
+            <h3 class="city">Алматы</h3><span class="main">Главный офис</span>
             <address>ул. Тимирязева, 42/15</address>
             <a class="phone" href="tel:+77017311063">+7 701 731 10 63</a>
           </div>
-          <div class="office">
-            <h3>Астана</h3>
+          <div class="panel office">
+            <h3 class="city">Астана</h3>
             <address>ул. Кунаева 33, БЦ «Астаналык», офис 903</address>
             <a class="phone" href="tel:+77074393939">+7 707 439 39 39</a>
           </div>
-          <div class="office">
-            <h3>Атырау</h3>
+          <div class="panel office">
+            <h3 class="city">Атырау</h3>
             <address>ул. Амандосова, 6а</address>
             <a class="phone" href="tel:+77074393939">+7 707 439 39 39</a>
           </div>
-          <div class="office">
-            <h3>Шымкент</h3>
+          <div class="panel office">
+            <h3 class="city">Шымкент</h3>
             <address>Акмаржан улица, 4</address>
             <a class="phone" href="tel:+77017311063">+7 701 731 10 63</a>
           </div>
@@ -320,11 +458,13 @@
 
     <div class="cta">
       <div class="wrap">
-        <div>
-          <h2>Обсудим ваш проект</h2>
-          <p>Позвоните в ближайший офис — мы работаем по всему Казахстану.</p>
+        <div class="box">
+          <div>
+            <h2>Обсудим ваш проект</h2>
+            <p>Позвоните в ближайший офис — мы работаем по всему Казахстану.</p>
+          </div>
+          <a class="btn" href="tel:+77017311063">+7 701 731 10 63 <span class="arr">→</span></a>
         </div>
-        <a class="btn light" href="tel:+77017311063">+7 701 731 10 63</a>
       </div>
     </div>
   </main>
@@ -332,7 +472,10 @@
   <footer>
     <div class="wrap footer-cols">
       <div>
-        <div class="logo-box"><img src="assets/logo.png" alt="KazCEP"></div>
+        <a class="logo" href="#top" aria-label="KazCEP — наверх">
+          <svg><use href="#mark"/></svg>
+          <span class="word"><b>KAZ</b> <i>CEP</i></span>
+        </a>
         <p>Проектирование и строительство телекоммуникационной инфраструктуры, экологический консалтинг и IT-решения по всему Казахстану.</p>
       </div>
       <div>
@@ -354,7 +497,7 @@
         </ul>
       </div>
     </div>
-    <div class="wrap copy">© KazCEP</div>
+    <div class="wrap copy"><span>© KazCEP</span><span>Алматы · Астана · Шымкент · Атырау</span></div>
   </footer>
 
   <script>
